@@ -128,15 +128,17 @@ function seleccionarJugador(jugador) {
       ).toFixed(1)
     : null
 
-  function irAPlayoffs() {
-    navigate('/playoffs', {
-      state: {
-        onceTitular,
-        promedio,
-        formacion,
-      },
-    })
-  }
+function irAPlayoffs() {
+  localStorage.removeItem('ligaCampeonesPlayoffs')
+
+  navigate('/playoffs', {
+    state: {
+      onceTitular,
+      promedio,
+      formacion,
+    },
+  })
+}
 
   return (
     <div className="pantalla">
