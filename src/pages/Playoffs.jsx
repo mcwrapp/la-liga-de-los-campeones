@@ -351,21 +351,31 @@ setFinalizado(false)
 setPartidoEnCurso(true)
   }
 
-  function siguientePaso() {
-    if (partidoEnCurso) return
-    if (!partido) {
-      simularPartido()
-      return
-    }
 
-    if (finalizado) {
-      navigate('/')
-      return
-    }
+function siguientePaso() {
+  if (partidoEnCurso) return
 
-    setRonda(actual => actual + 1)
-    setPartido(null)
+  if (!partido) {
+    simularPartido()
+    return
   }
+
+  if (finalizado) {
+    if (partido.ganoUsuario && ronda === 3) {
+      navigate('/tu-camino', {
+        state: { historial },
+      })
+    } else {
+      navigate('/')
+    }
+
+    return
+  }
+
+  setRonda(actual => actual + 1)
+  setPartido(null)
+}
+
 
   const campeon = finalizado && partido?.ganoUsuario && ronda === 3
   const eliminado = finalizado && partido && !partido.ganoUsuario
@@ -395,7 +405,11 @@ const golesRivalActuales = partido
             <p>EL CAMINO AL TÍTULO</p>
           </div>
 
-          <img src={logo} alt="La Liga de los Campeones" />
+          <img
+  src={logo}
+  alt="La Liga de los Campeones"
+  onClick={() => navigate('/')}
+/>
         </section>
 
         <nav className="progreso-playoffs">
@@ -550,9 +564,11 @@ const golesRivalActuales = partido
   onClick={siguientePaso}
   disabled={partidoEnCurso}
 >
-  {partidoEnCurso
-    ? 'PARTIDO EN JUEGO...'
-    : campeon || eliminado
+{partidoEnCurso
+  ? 'PARTIDO EN JUEGO...'
+  : campeon
+    ? 'DESCUBRIR TU CAMINO'
+    : eliminado
       ? 'VOLVER AL MENÚ'
       : `JUGAR ${rondas[ronda + 1]}`}
   <span>›</span>
