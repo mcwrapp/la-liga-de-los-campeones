@@ -1054,6 +1054,30 @@ footer {
   margin-bottom: 8px;
 }
 
+/* MARCADOR DEL PARTIDO */
+
+.marcador-partido {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 20px;
+  padding: 30px 20px;
+  background: #102f51;
+  border: 1px solid #347db5;
+  border-radius: 15px;
+}
+
+.equipo-marcador {
+  text-align: center;
+  min-width: 0;
+}
+
+.bandera-equipo {
+  display: block;
+  font-size: 42px;
+  margin-bottom: 8px;
+}
+
 .equipo-marcador h2 {
   font-size: 19px;
   overflow-wrap: anywhere;
@@ -1064,16 +1088,36 @@ footer {
   margin-bottom: 0;
 }
 
+/* CENTRO: RELOJ Y RESULTADO */
+
+.centro-marcador {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.reloj-partido {
+  color: #ffda54;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+
 .resultado-partido {
   display: flex;
   align-items: center;
-  gap: 15px;
+  justify-content: center;
+  gap: 24px;
+  min-width: 190px;
+  min-height: 105px;
   font-size: 58px;
+  line-height: 1.2;
   font-weight: 900;
   background: #071c34;
   border: 2px solid #40c8ff;
   border-radius: 14px;
-  padding: 10px 22px;
+  padding: 20px 28px;
   box-shadow: 0 0 14px rgba(45, 194, 255, 0.2);
 }
 
@@ -1447,4 +1491,14 @@ main.pantalla-playoffs {
 .playoffs-encabezado img {
   width: 145px;
   flex-shrink: 0;
+}
+
+/* ESCUDOS DEL MARCADOR */
+
+.escudo-marcador {
+  display: block;
+  width: 85px;
+  height: 85px;
+  object-fit: contain;
+  margin: 0 auto 10px;
 }

@@ -5,6 +5,15 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import logo from '../assets/Logo.png'
+import escudoArgentinos from '../assets/escudo-argentinos.png'
+import escudoBoca from '../assets/escudo-boca.png'
+import escudoEstudiantes from '../assets/escudo-estudiantes.png'
+import escudoIndependiente from '../assets/escudo-independiente.png'
+import escudoNewells from '../assets/escudo-newells.png'
+import escudoRacing from '../assets/escudo-racing.png'
+import escudoRiver from '../assets/escudo-river.png'
+import escudoSanLorenzo from '../assets/escudo-sanlorenzo.png'
+import escudoVelez from '../assets/escudo-velez.png'
 import { equipos } from '../data/equipos'
 
 const rondas = [
@@ -13,6 +22,31 @@ const rondas = [
   'SEMIFINAL',
   'FINAL',
 ]
+
+function obtenerEscudo(equipo) {
+  switch (equipo.nombre) {
+    case 'ARGENTINOS JUNIORS':
+      return escudoArgentinos
+    case 'BOCA JUNIORS':
+      return escudoBoca
+    case 'ESTUDIANTES':
+      return escudoEstudiantes
+    case 'INDEPENDIENTE':
+      return escudoIndependiente
+    case "NEWELL'S OLD BOYS":
+      return escudoNewells
+    case 'RACING CLUB':
+      return escudoRacing
+    case 'RIVER PLATE':
+      return escudoRiver
+    case 'SAN LORENZO':
+      return escudoSanLorenzo
+    case 'VÉLEZ SARSFIELD':
+      return escudoVelez
+    default:
+      return null
+  }
+}
 
 function promedioEquipo(equipo) {
   return equipo.jugadores.reduce(
@@ -100,6 +134,41 @@ const [finalizado, setFinalizado] = useState(
   estadoInicial?.finalizado ?? false
 )
 
+const [minutoActual, setMinutoActual] = useState(
+  estadoInicial?.minutoActual ?? 0
+)
+
+const [golesMostrados, setGolesMostrados] = useState(
+  estadoInicial?.golesMostrados ?? 0
+)
+
+const [partidoEnCurso, setPartidoEnCurso] = useState(
+  estadoInicial?.partidoEnCurso ?? false
+)
+
+useEffect(() => {
+  if (!partidoEnCurso) return
+
+  const reloj = setInterval(() => {
+    setMinutoActual(minuto => {
+if (minuto >= 90) {
+  clearInterval(reloj)
+  setPartidoEnCurso(false)
+
+  if (partido && (!partido.ganoUsuario || ronda === 3)) {
+    setFinalizado(true)
+  }
+
+  return 90
+}
+
+      return minuto + 1
+    })
+  }, 111)
+
+  return () => clearInterval(reloj)
+}, [partidoEnCurso])
+
 useEffect(() => {
   if (!datos) return
 
@@ -112,6 +181,9 @@ useEffect(() => {
       rivalesDisponibles,
       historial,
       finalizado,
+      minutoActual,
+golesMostrados,
+partidoEnCurso,
     })
   )
 }, [
@@ -121,6 +193,9 @@ useEffect(() => {
   rivalesDisponibles,
   historial,
   finalizado,
+  minutoActual,
+golesMostrados,
+partidoEnCurso,
 ])
 
   if (!datos || onceTitular.length !== 11) {
@@ -204,18 +279,22 @@ useEffect(() => {
       ganoUsuario,
     }
 
-    setPartido(nuevoPartido)
-    setRivalesDisponibles(restantes =>
-      restantes.filter(equipo => equipo.id !== rival.id)
-    )
-    setHistorial(actual => [...actual, nuevoPartido])
+setPartido(nuevoPartido)
 
-    if (!ganoUsuario || ronda === 3) {
-      setFinalizado(true)
-    }
+setRivalesDisponibles(restantes =>
+  restantes.filter(equipo => equipo.id !== rival.id)
+)
+
+setHistorial(actual => [...actual, nuevoPartido])
+
+setMinutoActual(0)
+setGolesMostrados(0)
+setFinalizado(false)
+setPartidoEnCurso(true)
   }
 
   function siguientePaso() {
+    if (partidoEnCurso) return
     if (!partido) {
       simularPartido()
       return
@@ -232,7 +311,17 @@ useEffect(() => {
 
   const campeon = finalizado && partido?.ganoUsuario && ronda === 3
   const eliminado = finalizado && partido && !partido.ganoUsuario
+const golesPropiosActuales = partido
+  ? partido.goles.filter(
+      gol => gol.equipo === 'propio' && gol.minuto <= minutoActual
+    ).length
+  : 0
 
+const golesRivalActuales = partido
+  ? partido.goles.filter(
+      gol => gol.equipo === 'rival' && gol.minuto <= minutoActual
+    ).length
+  : 0
   return (
     <div className="pantalla">
       <Header />
@@ -300,29 +389,43 @@ useEffect(() => {
               </div>
             ) : (
               <>
-                <div className="marcador-partido">
+<div className="marcador-partido">
 
-                  <div className="equipo-marcador">
-                    <span className="bandera-equipo">🇦🇷</span>
-                    <h2>TU EQUIPO</h2>
-                    <p>Media: {promedio.toFixed(1)}</p>
-                  </div>
+<div className="equipo-marcador">
+  <img
+    className="escudo-marcador"
+    src={logo}
+    alt="Escudo de tu equipo"
+  />
+  <h2>TU EQUIPO</h2>
+  <p>Media: {promedio.toFixed(1)}</p>
+</div>
 
-                  <div className="resultado-partido">
-                    <strong>{partido.golesPropios}</strong>
-                    <span>-</span>
-                    <strong>{partido.golesRival}</strong>
-                  </div>
+  <div className="centro-marcador">
+    <div className="reloj-partido">
+      {partidoEnCurso ? `${minutoActual}'` : "90'"}
+    </div>
 
-                  <div className="equipo-marcador">
-                    <span className="bandera-equipo">⚽</span>
-                    <h2>{partido.rival.nombre}</h2>
-                    <p>Media: {partido.mediaRival}</p>
-                  </div>
+    <div className="resultado-partido">
+      <strong>{golesPropiosActuales}</strong>
+      <span>-</span>
+      <strong>{golesRivalActuales}</strong>
+    </div>
+  </div>
 
-                </div>
+<div className="equipo-marcador">
+  <img
+    className="escudo-marcador"
+    src={obtenerEscudo(partido.rival)}
+    alt={`Escudo de ${partido.rival.nombre}`}
+  />
+  <h2>{partido.rival.nombre} {partido.rival.anio}</h2>
+  <p>Media: {partido.mediaRival}</p>
+</div>
 
-                {partido.penales && (
+</div>
+
+                {partido.penales && !partidoEnCurso && (
                   <div className="resultado-penales">
                     DEFINICIÓN POR PENALES:
                     {' '}{partido.penales.propios}
@@ -353,7 +456,9 @@ useEffect(() => {
                         No hubo goles durante el partido.
                       </p>
                     ) : (
-                      partido.goles.map((gol, indice) => (
+                      partido.goles
+  .filter(gol => gol.minuto <= minutoActual)
+  .map((gol, indice) => (
                         <div
                           key={indice}
                           className="evento-gol"
@@ -378,15 +483,18 @@ useEffect(() => {
                   </div>
                 )}
 
-                <button
-                  className="boton-jugar"
-                  onClick={siguientePaso}
-                >
-                  {campeon || eliminado
-                    ? 'VOLVER AL MENÚ'
-                    : `JUGAR ${rondas[ronda + 1]}`}
-                  <span>›</span>
-                </button>
+<button
+  className="boton-jugar"
+  onClick={siguientePaso}
+  disabled={partidoEnCurso}
+>
+  {partidoEnCurso
+    ? 'PARTIDO EN JUEGO...'
+    : campeon || eliminado
+      ? 'VOLVER AL MENÚ'
+      : `JUGAR ${rondas[ronda + 1]}`}
+  <span>›</span>
+</button>
               </>
             )}
 
@@ -414,12 +522,12 @@ useEffect(() => {
                   <div>
                     <h3>{nombre}</h3>
                     {registro ? (
-                      <p>
-                        vs {registro.rival.nombre}
-                        <strong>
-                          {registro.golesPropios} - {registro.golesRival}
-                        </strong>
-                      </p>
+<p>
+  vs {registro.rival.nombre} {registro.rival.anio}
+  <strong>
+    {registro.golesPropios} - {registro.golesRival}
+  </strong>
+</p>
                     ) : (
                       <p>
                         {indice === ronda
