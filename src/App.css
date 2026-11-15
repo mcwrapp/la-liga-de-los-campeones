@@ -1047,6 +1047,9 @@ footer {
   text-align: center;
   min-width: 0;
 }
+.equipo-marcador h2 {
+  color: white;
+}
 
 .bandera-equipo {
   display: block;
@@ -1501,4 +1504,72 @@ main.pantalla-playoffs {
   height: 85px;
   object-fit: contain;
   margin: 0 auto 10px;
+}
+
+/* ESCUDOS DEL MARCADOR */
+.escudo-marcador {
+  display: block;
+  width: 85px;
+  height: 85px;
+  object-fit: contain;
+  margin: 0 auto 10px;
+}
+
+/* ESCUDOS DEL HISTORIAL */
+.rival-camino {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  color: #a9c9e9;
+  line-height: 1.4;
+}
+
+.escudo-camino {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* RESULTADOS DEL HISTORIAL */
+
+.item-camino.derrota p strong {
+  color: #ff5c5c;
+}
+
+.item-camino:not(.derrota) p strong {
+  color: #37e76d;
+}
+
+/* ALINEACIÓN DE ESCUDOS Y EQUIPOS */
+
+.rival-camino {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 28px;
+  margin-top: 8px;
+  color: #a9c9e9;
+  line-height: 1.4;
+}
+
+.escudo-camino {
+  display: block;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* ALINEACIÓN UNIFORME DEL HISTORIAL */
+.item-camino > div {
+  flex: 1;
+  min-width: 0;
+  text-align: left;
+}
+
+.item-camino h3,
+.item-camino p {
+  text-align: left;
 }

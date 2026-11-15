@@ -1,5 +1,5 @@
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import Header from '../components/Header'
@@ -14,6 +14,10 @@ import escudoRacing from '../assets/escudo-racing.png'
 import escudoRiver from '../assets/escudo-river.png'
 import escudoSanLorenzo from '../assets/escudo-sanlorenzo.png'
 import escudoVelez from '../assets/escudo-velez.png'
+import golUsuario from '../assets/sonidos/gol-usuario.mp3'
+import golRival from '../assets/sonidos/gol-rival.mp3'
+import pitidoInicial from '../assets/sonidos/pitido-inicial.mp3'
+import pitidoFinal from '../assets/sonidos/pitido-final.mp3'
 import { equipos } from '../data/equipos'
 
 const rondas = [
@@ -138,6 +142,8 @@ const [minutoActual, setMinutoActual] = useState(
   estadoInicial?.minutoActual ?? 0
 )
 
+const ultimoMinutoRevisado = useRef(minutoActual)
+
 const [golesMostrados, setGolesMostrados] = useState(
   estadoInicial?.golesMostrados ?? 0
 )
@@ -153,6 +159,10 @@ useEffect(() => {
     setMinutoActual(minuto => {
 if (minuto >= 90) {
   clearInterval(reloj)
+
+  const sonidoFinal = new Audio(pitidoFinal)
+  sonidoFinal.play().catch(() => {})
+
   setPartidoEnCurso(false)
 
   if (partido && (!partido.ganoUsuario || ronda === 3)) {
@@ -168,6 +178,52 @@ if (minuto >= 90) {
 
   return () => clearInterval(reloj)
 }, [partidoEnCurso])
+
+useEffect(() => {
+  if (!partido || !partidoEnCurso) {
+    ultimoMinutoRevisado.current = minutoActual
+    return
+  }
+
+  const golesNuevos = partido.goles.filter(
+    gol =>
+      gol.minuto > ultimoMinutoRevisado.current &&
+      gol.minuto <= minutoActual
+  )
+
+  golesNuevos.forEach(gol => {
+    const sonido = new Audio(
+      gol.equipo === 'propio' ? golUsuario : golRival
+    )
+
+    sonido.play().catch(() => {})
+  })
+
+  ultimoMinutoRevisado.current = minutoActual
+}, [minutoActual, partido, partidoEnCurso])
+
+useEffect(() => {
+  if (!partido || !partidoEnCurso) {
+    ultimoMinutoRevisado.current = minutoActual
+    return
+  }
+
+  const golesNuevos = partido.goles.filter(
+    gol =>
+      gol.minuto > ultimoMinutoRevisado.current &&
+      gol.minuto <= minutoActual
+  )
+
+  golesNuevos.forEach(gol => {
+    const sonido = new Audio(
+      gol.equipo === 'propio' ? golUsuario : golRival
+    )
+
+    sonido.play().catch(() => {})
+  })
+
+  ultimoMinutoRevisado.current = minutoActual
+}, [minutoActual, partido, partidoEnCurso])
 
 useEffect(() => {
   if (!datos) return
@@ -217,6 +273,8 @@ partidoEnCurso,
   function simularPartido() {
     if (rivalesDisponibles.length === 0) return
 
+    const sonidoInicial = new Audio(pitidoInicial)
+sonidoInicial.play().catch(() => {})
     const indice = numeroAleatorio(0, rivalesDisponibles.length - 1)
     const rival = rivalesDisponibles[indice]
     const mediaRival = promedioEquipo(rival)
@@ -434,19 +492,23 @@ const golesRivalActuales = partido
                 )}
 
                 <div className="resumen-partido">
+<div className="cronica-partido">
+  <h2>
+    {partidoEnCurso
+      ? 'PARTIDO EN JUEGO'
+      : partido.ganoUsuario
+        ? '¡VICTORIA!'
+        : 'ELIMINADOS'}
+  </h2>
 
-                  <div className="cronica-partido">
-                    <h2>
-                      {partido.ganoUsuario
-                        ? '¡VICTORIA!'
-                        : 'ELIMINADOS'}
-                    </h2>
-                    <p>
-                      {partido.ganoUsuario
-                        ? 'Tu equipo consiguió el triunfo y sigue avanzando en el campeonato.'
-                        : 'Esta vez no alcanzó. Tu camino en el torneo termina acá.'}
-                    </p>
-                  </div>
+  <p>
+    {partidoEnCurso
+      ? 'El partido está en marcha. Todavía puede pasar cualquier cosa.'
+      : partido.ganoUsuario
+        ? 'Tu equipo consiguió el triunfo y sigue avanzando en el campeonato.'
+        : 'Esta vez no alcanzó. Tu camino en el torneo termina acá.'}
+  </p>
+</div>
 
                   <div className="goles-partido">
                     <h3>⚽ GOLES DEL PARTIDO</h3>
@@ -509,9 +571,11 @@ const golesRivalActuales = partido
               return (
                 <div
                   key={nombre}
-                  className={`item-camino ${
-                    indice === ronda ? 'camino-actual' : ''
-                  }`}
+className={`item-camino ${
+  indice === ronda ? 'camino-actual' : ''
+} ${
+  registro && !registro.ganoUsuario ? 'derrota' : ''
+}`}
                 >
                   <span className="circulo-camino">
                     {registro
@@ -521,14 +585,22 @@ const golesRivalActuales = partido
 
                   <div>
                     <h3>{nombre}</h3>
-                    {registro ? (
-<p>
-  vs {registro.rival.nombre} {registro.rival.anio}
-  <strong>
-    {registro.golesPropios} - {registro.golesRival}
-  </strong>
-</p>
-                    ) : (
+{registro ? (
+  <p>
+<span className="rival-camino">
+  <img
+    src={obtenerEscudo(registro.rival)}
+    alt={`Escudo de ${registro.rival.nombre}`}
+    className="escudo-camino"
+  />
+  {registro.rival.nombre} {registro.rival.anio}
+</span>
+
+    <strong>
+      {registro.golesPropios} - {registro.golesRival}
+    </strong>
+  </p>
+) : (
                       <p>
                         {indice === ronda
                           ? 'Próximo partido...'
