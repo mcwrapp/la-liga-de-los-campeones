@@ -1,4 +1,3 @@
-
 import { useState, useEffect, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -76,8 +75,14 @@ function golesSegunRendimiento(mediaPropia, mediaRival) {
 }
 
 function generarGoles(cantidad, jugadores, equipo) {
+  const jugadoresDeCampo = jugadores.filter(
+    jugador => jugador.posicion !== 'ARQ'
+  )
+
   return Array.from({ length: cantidad }, () => {
-    const jugador = jugadores[numeroAleatorio(0, jugadores.length - 1)]
+    const jugador = jugadoresDeCampo[
+      numeroAleatorio(0, jugadoresDeCampo.length - 1)
+    ]
 
     return {
       minuto: numeroAleatorio(1, 90),
@@ -115,154 +120,154 @@ function Playoffs() {
   const navigate = useNavigate()
 
   const [estadoInicial] = useState(() =>
-  obtenerTorneoGuardado(location.state)
-)
+    obtenerTorneoGuardado(location.state)
+  )
 
-const datos = estadoInicial?.datos || null
+  const datos = estadoInicial?.datos || null
 
-const onceTitular = datos?.onceTitular || []
-const promedio = Number(datos?.promedio) || 0
+  const onceTitular = datos?.onceTitular || []
+  const promedio = Number(datos?.promedio) || 0
 
-const [ronda, setRonda] = useState(estadoInicial?.ronda ?? 0)
-const [partido, setPartido] = useState(estadoInicial?.partido ?? null)
+  const [ronda, setRonda] = useState(estadoInicial?.ronda ?? 0)
+  const [partido, setPartido] = useState(estadoInicial?.partido ?? null)
 
-const [rivalesDisponibles, setRivalesDisponibles] = useState(
-  estadoInicial?.rivalesDisponibles ?? equipos
-)
+  const [rivalesDisponibles, setRivalesDisponibles] = useState(
+    estadoInicial?.rivalesDisponibles ?? equipos
+  )
 
-const [historial, setHistorial] = useState(
-  estadoInicial?.historial ?? []
-)
+  const [historial, setHistorial] = useState(
+    estadoInicial?.historial ?? []
+  )
 
-const [finalizado, setFinalizado] = useState(
-  estadoInicial?.finalizado ?? false
-)
+  const [finalizado, setFinalizado] = useState(
+    estadoInicial?.finalizado ?? false
+  )
 
-const [minutoActual, setMinutoActual] = useState(
-  estadoInicial?.minutoActual ?? 0
-)
+  const [minutoActual, setMinutoActual] = useState(
+    estadoInicial?.minutoActual ?? 0
+  )
 
-const ultimoMinutoRevisado = useRef(minutoActual)
+  const ultimoMinutoRevisado = useRef(minutoActual)
 
-const [golesMostrados, setGolesMostrados] = useState(
-  estadoInicial?.golesMostrados ?? 0
-)
+  const [golesMostrados, setGolesMostrados] = useState(
+    estadoInicial?.golesMostrados ?? 0
+  )
 
-const [partidoEnCurso, setPartidoEnCurso] = useState(
-  estadoInicial?.partidoEnCurso ?? false
-)
+  const [partidoEnCurso, setPartidoEnCurso] = useState(
+    estadoInicial?.partidoEnCurso ?? false
+  )
 
-useEffect(() => {
-  if (!partidoEnCurso) return
+  useEffect(() => {
+    if (!partidoEnCurso) return
 
-  const reloj = setInterval(() => {
-    setMinutoActual(minuto => {
-if (minuto >= 90) {
-  clearInterval(reloj)
+    const reloj = setInterval(() => {
+      setMinutoActual(minuto => {
+        if (minuto >= 90) {
+          clearInterval(reloj)
 
-  const sonidoFinal = new Audio(pitidoFinal)
-  sonidoFinal.play().catch(() => {})
+          const sonidoFinal = new Audio(pitidoFinal)
+          sonidoFinal.play().catch(() => {})
 
-  if (partido) {
-  setHistorial(actual => {
-    const yaRegistrado = actual.some(
-      registro => registro.rival.id === partido.rival.id
+          if (partido) {
+            setHistorial(actual => {
+              const yaRegistrado = actual.some(
+                registro => registro.rival.id === partido.rival.id
+              )
+
+              return yaRegistrado ? actual : [...actual, partido]
+            })
+          }
+
+          setPartidoEnCurso(false)
+
+          if (partido && (!partido.ganoUsuario || ronda === 3)) {
+            setFinalizado(true)
+          }
+
+          return 90
+        }
+
+        return minuto + 1
+      })
+    }, 111)
+
+    return () => clearInterval(reloj)
+  }, [partidoEnCurso])
+
+  useEffect(() => {
+    if (!partido || !partidoEnCurso) {
+      ultimoMinutoRevisado.current = minutoActual
+      return
+    }
+
+    const golesNuevos = partido.goles.filter(
+      gol =>
+        gol.minuto > ultimoMinutoRevisado.current &&
+        gol.minuto <= minutoActual
     )
 
-    return yaRegistrado ? actual : [...actual, partido]
-  })
-}
-  
-  setPartidoEnCurso(false)
+    golesNuevos.forEach(gol => {
+      const sonido = new Audio(
+        gol.equipo === 'propio' ? golUsuario : golRival
+      )
 
-  if (partido && (!partido.ganoUsuario || ronda === 3)) {
-    setFinalizado(true)
-  }
-
-  return 90
-}
-
-      return minuto + 1
+      sonido.play().catch(() => {})
     })
-  }, 111)
 
-  return () => clearInterval(reloj)
-}, [partidoEnCurso])
-
-useEffect(() => {
-  if (!partido || !partidoEnCurso) {
     ultimoMinutoRevisado.current = minutoActual
-    return
-  }
+  }, [minutoActual, partido, partidoEnCurso])
 
-  const golesNuevos = partido.goles.filter(
-    gol =>
-      gol.minuto > ultimoMinutoRevisado.current &&
-      gol.minuto <= minutoActual
-  )
+  useEffect(() => {
+    if (!partido || !partidoEnCurso) {
+      ultimoMinutoRevisado.current = minutoActual
+      return
+    }
 
-  golesNuevos.forEach(gol => {
-    const sonido = new Audio(
-      gol.equipo === 'propio' ? golUsuario : golRival
+    const golesNuevos = partido.goles.filter(
+      gol =>
+        gol.minuto > ultimoMinutoRevisado.current &&
+        gol.minuto <= minutoActual
     )
 
-    sonido.play().catch(() => {})
-  })
+    golesNuevos.forEach(gol => {
+      const sonido = new Audio(
+        gol.equipo === 'propio' ? golUsuario : golRival
+      )
 
-  ultimoMinutoRevisado.current = minutoActual
-}, [minutoActual, partido, partidoEnCurso])
-
-useEffect(() => {
-  if (!partido || !partidoEnCurso) {
-    ultimoMinutoRevisado.current = minutoActual
-    return
-  }
-
-  const golesNuevos = partido.goles.filter(
-    gol =>
-      gol.minuto > ultimoMinutoRevisado.current &&
-      gol.minuto <= minutoActual
-  )
-
-  golesNuevos.forEach(gol => {
-    const sonido = new Audio(
-      gol.equipo === 'propio' ? golUsuario : golRival
-    )
-
-    sonido.play().catch(() => {})
-  })
-
-  ultimoMinutoRevisado.current = minutoActual
-}, [minutoActual, partido, partidoEnCurso])
-
-useEffect(() => {
-  if (!datos) return
-
-  localStorage.setItem(
-    'ligaCampeonesPlayoffs',
-    JSON.stringify({
-      datos,
-      ronda,
-      partido,
-      rivalesDisponibles,
-      historial,
-      finalizado,
-      minutoActual,
-golesMostrados,
-partidoEnCurso,
+      sonido.play().catch(() => {})
     })
-  )
-}, [
-  datos,
-  ronda,
-  partido,
-  rivalesDisponibles,
-  historial,
-  finalizado,
-  minutoActual,
-golesMostrados,
-partidoEnCurso,
-])
+
+    ultimoMinutoRevisado.current = minutoActual
+  }, [minutoActual, partido, partidoEnCurso])
+
+  useEffect(() => {
+    if (!datos) return
+
+    localStorage.setItem(
+      'ligaCampeonesPlayoffs',
+      JSON.stringify({
+        datos,
+        ronda,
+        partido,
+        rivalesDisponibles,
+        historial,
+        finalizado,
+        minutoActual,
+        golesMostrados,
+        partidoEnCurso,
+      })
+    )
+  }, [
+    datos,
+    ronda,
+    partido,
+    rivalesDisponibles,
+    historial,
+    finalizado,
+    minutoActual,
+    golesMostrados,
+    partidoEnCurso,
+  ])
 
   if (!datos || onceTitular.length !== 11) {
     return (
@@ -284,7 +289,8 @@ partidoEnCurso,
     if (rivalesDisponibles.length === 0) return
 
     const sonidoInicial = new Audio(pitidoInicial)
-sonidoInicial.play().catch(() => {})
+    sonidoInicial.play().catch(() => {})
+
     const indice = numeroAleatorio(0, rivalesDisponibles.length - 1)
     const rival = rivalesDisponibles[indice]
     const mediaRival = promedioEquipo(rival)
@@ -347,59 +353,80 @@ sonidoInicial.play().catch(() => {})
       ganoUsuario,
     }
 
-setPartido(nuevoPartido)
+    setPartido(nuevoPartido)
 
-setRivalesDisponibles(restantes =>
-  restantes.filter(equipo => equipo.id !== rival.id)
-)
+    setRivalesDisponibles(restantes =>
+      restantes.filter(equipo => equipo.id !== rival.id)
+    )
 
-
-setMinutoActual(0)
-setGolesMostrados(0)
-setFinalizado(false)
-setPartidoEnCurso(true)
+    setMinutoActual(0)
+    setGolesMostrados(0)
+    setFinalizado(false)
+    setPartidoEnCurso(true)
   }
 
+  function saltarPartido() {
+    if (!partidoEnCurso || !partido) return
 
-function siguientePaso() {
-  if (partidoEnCurso) return
+    const sonidoFinal = new Audio(pitidoFinal)
+    sonidoFinal.play().catch(() => {})
 
-  if (!partido) {
-    simularPartido()
-    return
+    setMinutoActual(90)
+    setPartidoEnCurso(false)
+
+    setHistorial(actual => {
+      const yaRegistrado = actual.some(
+        registro => registro.rival.id === partido.rival.id
+      )
+
+      return yaRegistrado ? actual : [...actual, partido]
+    })
+
+    if (!partido.ganoUsuario || ronda === 3) {
+      setFinalizado(true)
+    }
   }
 
-  if (finalizado) {
-if (partido.ganoUsuario && ronda === 3) {
-  navigate('/tu-camino', {
-    replace: true,
-    state: { historial },
-  })
-} else {
-  navigate('/', { replace: true })
-}
+  function siguientePaso() {
+    if (partidoEnCurso) return
 
-    return
+    if (!partido) {
+      simularPartido()
+      return
+    }
+
+    if (finalizado) {
+      if (partido.ganoUsuario && ronda === 3) {
+        navigate('/tu-camino', {
+          replace: true,
+          state: { historial },
+        })
+      } else {
+        navigate('/', { replace: true })
+      }
+
+      return
+    }
+
+    setRonda(actual => actual + 1)
+    setPartido(null)
   }
-
-  setRonda(actual => actual + 1)
-  setPartido(null)
-}
-
 
   const campeon = finalizado && partido?.ganoUsuario && ronda === 3
   const eliminado = finalizado && partido && !partido.ganoUsuario
-const golesPropiosActuales = partido
-  ? partido.goles.filter(
-      gol => gol.equipo === 'propio' && gol.minuto <= minutoActual
-    ).length
-  : 0
 
-const golesRivalActuales = partido
-  ? partido.goles.filter(
-      gol => gol.equipo === 'rival' && gol.minuto <= minutoActual
-    ).length
-  : 0
+  const golesPropiosActuales = partido
+    ? partido.goles.filter(
+        gol => gol.equipo === 'propio' && gol.minuto <= minutoActual
+      ).length
+    : 0
+
+  const golesRivalActuales = partido
+    ? partido.goles.filter(
+        gol => gol.equipo === 'rival' && gol.minuto <= minutoActual
+      ).length
+    : 0
+
   return (
     <div className="pantalla">
       <Header />
@@ -416,10 +443,10 @@ const golesRivalActuales = partido
           </div>
 
           <img
-  src={logo}
-  alt="La Liga de los Campeones"
-  onClick={() => navigate('/')}
-/>
+            src={logo}
+            alt="La Liga de los Campeones"
+            onClick={() => navigate('/')}
+          />
         </section>
 
         <nav className="progreso-playoffs">
@@ -456,11 +483,13 @@ const golesRivalActuales = partido
                     ronda === 2 ? ' la semifinal' :
                     ' la gran final'}.
                 </p>
+
                 <div className="escudos-pendientes">
                   <span>⚽</span>
                   <b>VS</b>
                   <span>?</span>
                 </div>
+
                 <button
                   className="boton-jugar"
                   onClick={siguientePaso}
@@ -471,41 +500,51 @@ const golesRivalActuales = partido
               </div>
             ) : (
               <>
-<div className="marcador-partido">
+                {partidoEnCurso && (
+                  <button
+                    className="boton-saltar"
+                    onClick={saltarPartido}
+                  >
+                    SALTAR
+                  </button>
+                )}
 
-<div className="equipo-marcador">
-  <img
-    className="escudo-marcador"
-    src={logo}
-    alt="Escudo de tu equipo"
-  />
-  <h2>TU EQUIPO</h2>
-  <p>Media: {promedio.toFixed(1)}</p>
-</div>
+                <div className="marcador-partido">
 
-  <div className="centro-marcador">
-    <div className="reloj-partido">
-      {partidoEnCurso ? `${minutoActual}'` : "90'"}
-    </div>
+                  <div className="equipo-marcador">
+                    <img
+                      className="escudo-marcador"
+                      src={logo}
+                      alt="Escudo de tu equipo"
+                    />
+                    <h2>TU EQUIPO</h2>
+                    <p>Media: {promedio.toFixed(1)}</p>
+                  </div>
 
-    <div className="resultado-partido">
-      <strong>{golesPropiosActuales}</strong>
-      <span>-</span>
-      <strong>{golesRivalActuales}</strong>
-    </div>
-  </div>
+                  <div className="centro-marcador">
+                    <div className="reloj-partido">
+                      {partidoEnCurso ? `${minutoActual}'` : "90'"}
+                    </div>
 
-<div className="equipo-marcador">
-  <img
-    className="escudo-marcador"
-    src={obtenerEscudo(partido.rival)}
-    alt={`Escudo de ${partido.rival.nombre}`}
-  />
-  <h2>{partido.rival.nombre} {partido.rival.anio}</h2>
-  <p>Media: {partido.mediaRival}</p>
-</div>
+                    <div className="resultado-partido">
+                      <strong>{golesPropiosActuales}</strong>
+                      <span>-</span>
+                      <strong>{golesRivalActuales}</strong>
+                    </div>
+                  </div>
 
-</div>
+                  <div className="equipo-marcador">
+                    <img
+                      className="escudo-marcador"
+                      src={obtenerEscudo(partido.rival)}
+                      alt={`Escudo de ${partido.rival.nombre}`}
+                    />
+
+                    <h2>{partido.rival.nombre} {partido.rival.anio}</h2>
+                    <p>Media: {partido.mediaRival}</p>
+                  </div>
+
+                </div>
 
                 {partido.penales && !partidoEnCurso && (
                   <div className="resultado-penales">
@@ -516,23 +555,24 @@ const golesRivalActuales = partido
                 )}
 
                 <div className="resumen-partido">
-<div className="cronica-partido">
-  <h2>
-    {partidoEnCurso
-      ? 'PARTIDO EN JUEGO'
-      : partido.ganoUsuario
-        ? '¡VICTORIA!'
-        : 'ELIMINADOS'}
-  </h2>
 
-  <p>
-    {partidoEnCurso
-      ? 'El partido está en marcha. Todavía puede pasar cualquier cosa.'
-      : partido.ganoUsuario
-        ? 'Tu equipo consiguió el triunfo y sigue avanzando en el campeonato.'
-        : 'Esta vez no alcanzó. Tu camino en el torneo termina acá.'}
-  </p>
-</div>
+                  <div className="cronica-partido">
+                    <h2>
+                      {partidoEnCurso
+                        ? 'PARTIDO EN JUEGO'
+                        : partido.ganoUsuario
+                          ? '¡VICTORIA!'
+                          : 'ELIMINADOS'}
+                    </h2>
+
+                    <p>
+                      {partidoEnCurso
+                        ? 'El partido está en marcha. Todavía puede pasar cualquier cosa.'
+                        : partido.ganoUsuario
+                          ? 'Tu equipo consiguió el triunfo y sigue avanzando en el campeonato.'
+                          : 'Esta vez no alcanzó. Tu camino en el torneo termina acá.'}
+                    </p>
+                  </div>
 
                   <div className="goles-partido">
                     <h3>⚽ GOLES DEL PARTIDO</h3>
@@ -543,21 +583,21 @@ const golesRivalActuales = partido
                       </p>
                     ) : (
                       partido.goles
-  .filter(gol => gol.minuto <= minutoActual)
-  .map((gol, indice) => (
-                        <div
-                          key={indice}
-                          className="evento-gol"
-                        >
-                          <strong>{gol.minuto}'</strong>
-                          <span>{gol.jugador}</span>
-                          <small>
-                            {gol.equipo === 'propio'
-                              ? 'TU EQUIPO'
-                              : partido.rival.nombre}
-                          </small>
-                        </div>
-                      ))
+                        .filter(gol => gol.minuto <= minutoActual)
+                        .map((gol, indice) => (
+                          <div
+                            key={indice}
+                            className="evento-gol"
+                          >
+                            <strong>{gol.minuto}'</strong>
+                            <span>{gol.jugador}</span>
+                            <small>
+                              {gol.equipo === 'propio'
+                                ? 'TU EQUIPO'
+                                : partido.rival.nombre}
+                            </small>
+                          </div>
+                        ))
                     )}
                   </div>
 
@@ -569,20 +609,20 @@ const golesRivalActuales = partido
                   </div>
                 )}
 
-<button
-  className="boton-jugar"
-  onClick={siguientePaso}
-  disabled={partidoEnCurso}
->
-{partidoEnCurso
-  ? 'PARTIDO EN JUEGO...'
-  : campeon
-    ? 'DESCUBRIR TU CAMINO'
-    : eliminado
-      ? 'VOLVER AL MENÚ'
-      : `JUGAR ${rondas[ronda + 1]}`}
-  <span>›</span>
-</button>
+                <button
+                  className="boton-jugar"
+                  onClick={siguientePaso}
+                  disabled={partidoEnCurso}
+                >
+                  {partidoEnCurso
+                    ? 'PARTIDO EN JUEGO...'
+                    : campeon
+                      ? 'DESCUBRIR TU CAMINO'
+                      : eliminado
+                        ? 'VOLVER AL MENÚ'
+                        : `JUGAR ${rondas[ronda + 1]}`}
+                  <span>›</span>
+                </button>
               </>
             )}
 
@@ -597,11 +637,11 @@ const golesRivalActuales = partido
               return (
                 <div
                   key={nombre}
-className={`item-camino ${
-  indice === ronda ? 'camino-actual' : ''
-} ${
-  registro && !registro.ganoUsuario ? 'derrota' : ''
-}`}
+                  className={`item-camino ${
+                    indice === ronda ? 'camino-actual' : ''
+                  } ${
+                    registro && !registro.ganoUsuario ? 'derrota' : ''
+                  }`}
                 >
                   <span className="circulo-camino">
                     {registro
@@ -611,22 +651,23 @@ className={`item-camino ${
 
                   <div>
                     <h3>{nombre}</h3>
-{registro ? (
-  <p>
-<span className="rival-camino">
-  <img
-    src={obtenerEscudo(registro.rival)}
-    alt={`Escudo de ${registro.rival.nombre}`}
-    className="escudo-camino"
-  />
-  {registro.rival.nombre} {registro.rival.anio}
-</span>
 
-    <strong>
-      {registro.golesPropios} - {registro.golesRival}
-    </strong>
-  </p>
-) : (
+                    {registro ? (
+                      <p>
+                        <span className="rival-camino">
+                          <img
+                            src={obtenerEscudo(registro.rival)}
+                            alt={`Escudo de ${registro.rival.nombre}`}
+                            className="escudo-camino"
+                          />
+                          {registro.rival.nombre} {registro.rival.anio}
+                        </span>
+
+                        <strong>
+                          {registro.golesPropios} - {registro.golesRival}
+                        </strong>
+                      </p>
+                    ) : (
                       <p>
                         {indice === ronda
                           ? 'Próximo partido...'

@@ -102,6 +102,74 @@ function seleccionarJugador(jugador) {
   setJugadorSeleccionado(jugador)
 }
 
+function armarEquipoAleatorio() {
+  if (cantidadSeleccionados > 0) return
+
+  const equiposDisponibles = [...equipos]
+
+  const nuevoOnce = puestos.map(puesto => {
+    const indiceEquipo = Math.floor(
+      Math.random() * equiposDisponibles.length
+    )
+
+    const equipo = equiposDisponibles.splice(indiceEquipo, 1)[0]
+
+    const jugadoresCompatibles = equipo.jugadores.filter(
+      jugador => jugador.posicion === puesto.categoria
+    )
+
+    const indiceJugador = Math.floor(
+      Math.random() * jugadoresCompatibles.length
+    )
+
+    const jugador = jugadoresCompatibles[indiceJugador]
+
+    return {
+      ...jugador,
+      equipo: equipo.nombre,
+      anio: equipo.anio,
+    }
+  })
+
+  setOnceTitular(nuevoOnce)
+  setEquipoActual(null)
+  setJugadorSeleccionado(null)
+  setEquiposRestantes([])
+}
+
+function armarEquipoAleatorio() {
+  const equiposDisponibles = [...equipos]
+
+  const nuevoOnce = puestos.map(puesto => {
+    const indiceEquipo = Math.floor(
+      Math.random() * equiposDisponibles.length
+    )
+
+    const equipo = equiposDisponibles.splice(indiceEquipo, 1)[0]
+
+    const jugadoresCompatibles = equipo.jugadores.filter(
+      jugador => jugador.posicion === puesto.categoria
+    )
+
+    const indiceJugador = Math.floor(
+      Math.random() * jugadoresCompatibles.length
+    )
+
+    const jugador = jugadoresCompatibles[indiceJugador]
+
+    return {
+      ...jugador,
+      equipo: equipo.nombre,
+      anio: equipo.anio,
+    }
+  })
+
+  setOnceTitular(nuevoOnce)
+  setEquipoActual(null)
+  setJugadorSeleccionado(null)
+  setEquiposRestantes([])
+}
+
   function asignarJugador(indice) {
     if (!jugadorSeleccionado || onceTitular[indice]) return
 
@@ -193,6 +261,15 @@ navigate('/playoffs', {
 
           </div>
 
+{cantidadSeleccionados === 0 && (
+  <button
+    className="sortear-aleatorio"
+    onClick={armarEquipoAleatorio}
+  >
+    ⚡ ARMAR XI ALEATORIO
+  </button>
+)}
+          
           <button
             className="sortear"
             onClick={equipoCompleto ? irAPlayoffs : sortearEquipo}

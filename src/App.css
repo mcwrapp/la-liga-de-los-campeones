@@ -2887,3 +2887,77 @@ footer h3 {
     text-align: center;
   }
 }
+
+footer a,
+footer button,
+.footer-ayuda,
+.footer-contacto {
+    cursor: pointer;
+}
+
+/* BOTÓN PARA ARMAR XI ALEATORIO */
+
+.sortear-aleatorio {
+    width: 100%;
+    padding: 13px 20px;
+    margin-bottom: 12px;
+
+    background: transparent;
+    color: #f5c842;
+    border: 2px solid #f5c842;
+    border-radius: 10px;
+
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.sortear-aleatorio:hover {
+    background: #f5c842;
+    color: #10243f;
+    transform: translateY(-2px);
+}
+
+.partido-playoffs {
+    position: relative;
+}
+
+.boton-saltar {
+    position: absolute;
+    top: 18px;
+    right: 15%;
+
+    padding: 9px 24px;
+    background: transparent;
+    color: #f5c842;
+    border: 2px solid #f5c842;
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 1px;
+
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.boton-saltar:hover {
+    background: #f5c842;
+    color: #10243f;
+    transform: translateY(-2px);
+}
+
+/* PANEL DE SORTEO CUANDO EL XI ESTÁ COMPLETO */
+
+.panel-sorteo {
+    transition: height 0.3s ease;
+}
+
+.panel-sorteo.panel-completo {
+    height: auto;
+    min-height: 0;
+    align-self: center;
+}
