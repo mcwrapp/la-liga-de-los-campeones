@@ -131,17 +131,18 @@ function seleccionarJugador(jugador) {
 function irAPlayoffs() {
   localStorage.removeItem('ligaCampeonesPlayoffs')
 
-  navigate('/playoffs', {
-    state: {
-      onceTitular,
-      promedio,
-      formacion,
-    },
-  })
+navigate('/playoffs', {
+  replace: true,
+  state: {
+    onceTitular,
+    promedio,
+    formacion,
+  },
+})
 }
 
   return (
-    <div className="pantalla">
+    <div className="pantalla pantalla-armado">
       <Header />
 
       <main className="pantalla-juego">

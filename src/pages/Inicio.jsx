@@ -1,3 +1,4 @@
+
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -7,9 +8,7 @@ import Footer from '../components/Footer'
 import logo from '../assets/Logo.png'
 
 function Inicio() {
-
   const [formacion, setFormacion] = useState('4-4-2')
-
   const navigate = useNavigate()
 
   function comenzarJuego() {
@@ -21,43 +20,56 @@ function Inicio() {
   }
 
   return (
-    <div className="pantalla">
-
+    <div className="pantalla pantalla-inicio">
       <Header />
 
-      <main>
-
-        <section className="panel">
+      <main className="inicio-main">
+        <section className="inicio-panel">
+          <span className="inicio-etiqueta">
+            EL DESAFÍO COMIENZA ACÁ
+          </span>
 
           <h1>
             ARMÁ TU XI
             <br />
-            HISTÓRICO
+            <span>HISTÓRICO</span>
           </h1>
 
-          <p>
-            Tirá el dado, elegí a tus leyendas
-            favoritas e intentá tocar el cielo
-            con las manos.
+          <p className="inicio-descripcion">
+            Elegí tu formación, reuní a las grandes leyendas
+            del fútbol argentino y construí un equipo capaz
+            de hacer historia.
           </p>
 
-          <h2>Formación:</h2>
+          <div className="inicio-separador" />
 
-          <FormationSelector
-            formacion={formacion}
-            setFormacion={setFormacion}
-          />
+          <div className="inicio-seleccion">
+            <h2>FORMACIÓN TÁCTICA</h2>
+            <p>Elegí cómo querés parar a tu equipo</p>
+
+            <FormationSelector
+              formacion={formacion}
+              setFormacion={setFormacion}
+            />
+          </div>
 
           <button
-            className="jugar"
+            className="jugar inicio-boton"
             onClick={comenzarJuego}
           >
-            JUGAR
+            COMENZAR DESAFÍO
+            <span>›</span>
           </button>
 
+          <div className="inicio-pie-panel">
+            <span>11 LEYENDAS</span>
+            <span>•</span>
+            <span>UN SOLO EQUIPO</span>
+          </div>
         </section>
 
-        <section className="logo">
+        <section className="inicio-identidad">
+          <div className="inicio-resplandor" />
 
           <img
             src={logo}
@@ -65,11 +77,9 @@ function Inicio() {
           />
 
         </section>
-
       </main>
 
       <Footer />
-
     </div>
   )
 }

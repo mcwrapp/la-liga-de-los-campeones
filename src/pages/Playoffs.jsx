@@ -163,6 +163,16 @@ if (minuto >= 90) {
   const sonidoFinal = new Audio(pitidoFinal)
   sonidoFinal.play().catch(() => {})
 
+  if (partido) {
+  setHistorial(actual => {
+    const yaRegistrado = actual.some(
+      registro => registro.rival.id === partido.rival.id
+    )
+
+    return yaRegistrado ? actual : [...actual, partido]
+  })
+}
+  
   setPartidoEnCurso(false)
 
   if (partido && (!partido.ganoUsuario || ronda === 3)) {
@@ -261,7 +271,7 @@ partidoEnCurso,
         <main className="playoffs-error">
           <h2>NO HAY UN EQUIPO COMPLETO</h2>
           <p>Primero tenés que completar tu XI histórico.</p>
-          <button onClick={() => navigate('/juego')}>
+          <button onClick={() => navigate('/juego', { replace: true })}>
             VOLVER AL JUEGO
           </button>
         </main>
@@ -343,7 +353,6 @@ setRivalesDisponibles(restantes =>
   restantes.filter(equipo => equipo.id !== rival.id)
 )
 
-setHistorial(actual => [...actual, nuevoPartido])
 
 setMinutoActual(0)
 setGolesMostrados(0)
@@ -361,13 +370,14 @@ function siguientePaso() {
   }
 
   if (finalizado) {
-    if (partido.ganoUsuario && ronda === 3) {
-      navigate('/tu-camino', {
-        state: { historial },
-      })
-    } else {
-      navigate('/')
-    }
+if (partido.ganoUsuario && ronda === 3) {
+  navigate('/tu-camino', {
+    replace: true,
+    state: { historial },
+  })
+} else {
+  navigate('/', { replace: true })
+}
 
     return
   }
