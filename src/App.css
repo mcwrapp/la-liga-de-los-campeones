@@ -2961,3 +2961,1141 @@ footer button,
     min-height: 0;
     align-self: center;
 }
+
+
+/* =================================
+   HEADER RESPONSIVE - CELULARES
+================================= */
+
+@media (max-width: 600px) {
+  header {
+    width: 100%;
+    height: auto;
+    min-height: 0;
+    padding: 18px 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 7px;
+    text-align: center;
+  }
+
+  header span {
+    display: block;
+    width: 100%;
+    font-size: 12px;
+    line-height: 1.4;
+    letter-spacing: 0.5px;
+  }
+
+  header span:first-child {
+    font-size: 14px;
+    color: #72caff;
+    letter-spacing: 1px;
+  }
+
+  header span:nth-child(2),
+  header span:nth-child(4) {
+    display: none;
+  }
+}
+
+
+/* =========================================
+   INICIO - AJUSTES RESPONSIVE PARA CELULARES
+========================================= */
+
+@media (max-width: 600px) {
+
+  .pantalla-inicio {
+    width: 100%;
+    overflow-x: hidden;
+    background-attachment: scroll;
+  }
+
+  .pantalla-inicio .inicio-main {
+    width: 100%;
+    min-height: auto;
+    padding: 25px 14px 35px;
+    gap: 30px;
+    flex-direction: column;
+  }
+
+  .inicio-panel {
+    width: 100%;
+    max-width: 470px;
+    padding: 27px 19px 23px;
+    border-radius: 19px;
+  }
+
+  .inicio-etiqueta {
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+  }
+
+  .inicio-panel h1 {
+    font-size: clamp(32px, 9vw, 38px);
+    line-height: 1.08;
+  }
+
+  .inicio-descripcion {
+    font-size: 15px;
+    line-height: 1.55;
+    margin: 19px 0;
+  }
+
+  .inicio-separador {
+    margin: 21px 0;
+  }
+
+  .inicio-seleccion h2 {
+    font-size: 17px;
+  }
+
+  .inicio-seleccion > p {
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .inicio-panel .formaciones {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin-bottom: 23px;
+  }
+
+  .inicio-panel .formaciones button {
+    min-width: 0;
+    min-height: 53px;
+    font-size: 15px;
+  }
+
+  .inicio-panel .inicio-boton {
+    min-height: 58px;
+    padding: 12px;
+    font-size: 16px;
+    gap: 8px;
+  }
+
+  .inicio-boton span {
+    font-size: 25px;
+  }
+
+  .inicio-pie-panel {
+    flex-wrap: wrap;
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .inicio-identidad {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .inicio-identidad img {
+    width: 190px;
+    max-width: 80%;
+  }
+
+  .inicio-resplandor {
+    width: 230px;
+    height: 230px;
+  }
+}
+
+
+/* =========================================
+   ARMADO DEL EQUIPO - RESPONSIVE MOBILE
+========================================= */
+
+@media (max-width: 750px) {
+
+  .pantalla-armado .pantalla-juego {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 22px;
+    width: 100%;
+    padding: 25px 14px 35px;
+    overflow-x: hidden;
+  }
+
+  /* PANEL DE SORTEO */
+
+  .pantalla-armado .panel-sorteo {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    min-height: 0;
+    padding: 20px;
+  }
+
+  .pantalla-armado .equipo {
+    height: 72px;
+    min-height: 72px;
+    margin-bottom: 14px;
+  }
+
+  .pantalla-armado .equipo span {
+    font-size: 18px;
+  }
+
+  .pantalla-armado .titulo-jugadores {
+    min-height: 0;
+    margin-bottom: 14px;
+    font-size: 15px;
+  }
+
+  .pantalla-armado .jugadores-disponibles {
+    flex: initial;
+    width: 100%;
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 12px;
+  }
+
+  .pantalla-armado .sortear,
+  .pantalla-armado .sortear-aleatorio {
+    width: 100%;
+    min-height: 48px;
+    font-size: 13px;
+  }
+
+  .pantalla-armado .mensaje-final {
+    margin-top: 15px;
+  }
+
+  /* CANCHA */
+
+  .pantalla-armado .cancha {
+    width: 100%;
+    max-width: 500px;
+    padding: 18px 14px;
+  }
+
+  .pantalla-armado .cancha h2 {
+    font-size: 21px;
+  }
+
+  .pantalla-armado .cancha .instruccion-cancha {
+    font-size: 12px;
+    min-height: 0;
+  }
+
+  .pantalla-armado .contador-xi {
+    font-size: 13px;
+  }
+
+  /* LOGO */
+
+  .pantalla-armado .logo img {
+    width: 145px;
+  }
+
+  /* INSTRUCCIONES */
+
+  .pantalla-armado .instrucciones-juego {
+    width: calc(100% - 28px);
+    margin-top: 10px;
+    padding: 24px 16px;
+  }
+
+  .pantalla-armado .instrucciones-encabezado h2 {
+    font-size: 23px;
+  }
+}
+
+
+/* =========================================
+   PLAYOFFS - RESPONSIVE PARA CELULARES
+========================================= */
+
+@media (max-width: 600px) {
+
+  main.pantalla-playoffs {
+    width: calc(100% - 20px);
+    max-width: 100%;
+    margin: 20px auto 35px;
+    padding: 20px 14px;
+    overflow: hidden;
+    border-radius: 18px;
+  }
+
+  /* ENCABEZADO */
+
+  .playoffs-encabezado {
+    min-height: 0;
+    width: 100%;
+    padding: 12px 5px 22px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .playoffs-encabezado > div {
+    width: 100%;
+    flex: initial;
+  }
+
+  .playoffs-etiqueta {
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+  }
+
+  .playoffs-encabezado h1 {
+    font-size: 38px;
+    letter-spacing: 1px;
+    margin: 0;
+  }
+
+  .playoffs-encabezado p {
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  .playoffs-encabezado img {
+    width: 90px;
+    max-width: 90px;
+    height: auto;
+    margin: 0 auto;
+  }
+
+  /* PROGRESO DE LAS RONDAS */
+
+  .progreso-playoffs {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    margin: 20px 0 30px;
+  }
+
+  .ronda-progreso {
+    min-width: 0;
+    gap: 0;
+    font-size: 11px;
+  }
+
+  .ronda-progreso span {
+    width: 100%;
+    min-height: 55px;
+    padding: 10px 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .ronda-progreso b {
+    display: none;
+  }
+
+  /* CONTENIDO */
+
+  .contenido-playoffs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 22px;
+  }
+
+  .partido-playoffs,
+  .camino-playoffs {
+    width: 100%;
+    min-width: 0;
+    padding: 20px 14px;
+    border-radius: 16px;
+  }
+
+  .titulo-ronda {
+    max-width: 90%;
+    margin: -30px auto 25px;
+    padding: 10px 18px;
+    text-align: center;
+    font-size: 15px;
+  }
+
+  /* PRÓXIMO DESAFÍO */
+
+  .partido-pendiente {
+    padding: 25px 5px;
+  }
+
+  .partido-pendiente h2 {
+    font-size: 25px;
+    line-height: 1.15;
+  }
+
+  .partido-pendiente p {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  .escudos-pendientes {
+    gap: 18px;
+    margin: 25px 0;
+  }
+
+  .escudos-pendientes span {
+    font-size: 48px;
+  }
+
+  .escudos-pendientes b {
+    font-size: 20px;
+  }
+
+  .boton-saltar {
+    top: 12px;
+    right: 12px;
+    padding: 7px 12px;
+    font-size: 11px;
+  }
+}
+
+
+/* =========================================
+   PLAYOFFS MOBILE - MARCADOR COMPACTO
+========================================= */
+
+@media (max-width: 600px) {
+
+  /* TARJETA DEL PARTIDO */
+  .partido-playoffs {
+    padding: 20px 12px;
+  }
+
+  /* ESCUDOS EN HORIZONTAL */
+  .marcador-partido {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    align-items: center;
+    gap: 8px 12px;
+    padding: 15px 10px;
+  }
+
+  .marcador-partido > .equipo-marcador:first-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .marcador-partido > .equipo-marcador:last-child {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .escudo-marcador {
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 5px;
+  }
+
+  .equipo-marcador h2 {
+    margin: 5px 0;
+    font-size: 12px;
+    line-height: 1.3;
+  }
+
+  .equipo-marcador p {
+    margin: 3px 0 0;
+    font-size: 11px;
+  }
+
+  /* MARCADOR CENTRADO DEBAJO */
+  .marcador-partido > .centro-marcador {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    gap: 5px;
+    padding-top: 8px;
+  }
+
+  .reloj-partido {
+    font-size: 17px;
+  }
+
+  .resultado-partido {
+    min-width: 125px;
+    min-height: 65px;
+    gap: 18px;
+    padding: 8px 20px;
+    font-size: 34px;
+    border-radius: 11px;
+  }
+
+  .resultado-penales {
+    margin-top: 5px;
+    font-size: 12px;
+  }
+
+  /* RESUMEN: SOLO GOLEADORES */
+  .resumen-partido {
+    display: block;
+    margin: 15px 0;
+  }
+
+  .cronica-partido {
+    display: none;
+  }
+
+  .goles-partido {
+    border: none;
+    border-top: 1px solid #347db5;
+    padding: 15px 0 0;
+  }
+
+  .goles-partido h3 {
+    margin: 0 0 10px;
+    font-size: 15px;
+    text-align: center;
+  }
+
+  .evento-gol {
+    grid-template-columns: 35px 1fr;
+    gap: 4px 8px;
+    padding: 8px 5px;
+    font-size: 13px;
+  }
+
+  .evento-gol small {
+    font-size: 11px;
+  }
+
+  /* BOTÓN CONTINUAR */
+  .boton-jugar {
+    width: 100%;
+    min-height: 52px;
+    padding: 12px;
+    font-size: 15px;
+    border-radius: 10px;
+  }
+
+  .boton-jugar span {
+    font-size: 19px;
+  }
+}
+
+
+/* AJUSTES FINOS DEL MARCADOR EN MOBILE */
+@media (max-width: 600px) {
+
+  /* EVITAR QUE SALTAR SE MONTE SOBRE EL TÍTULO */
+  .boton-saltar {
+    top: 48px;
+    right: 12px;
+    z-index: 5;
+    padding: 6px 10px;
+    font-size: 10px;
+  }
+
+  .titulo-ronda {
+    max-width: calc(100% - 85px);
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+
+  /* EQUILIBRAR VISUALMENTE LOS ESCUDOS */
+  .marcador-partido > .equipo-marcador:first-child .escudo-marcador {
+    width: 62px;
+    height: 58px;
+  }
+
+  .marcador-partido > .equipo-marcador:last-child .escudo-marcador {
+    width: 46px;
+    height: 52px;
+  }
+}
+
+@media (max-width: 600px) {
+  .partido-playoffs .boton-saltar {
+    position: static;
+    display: block;
+    width: fit-content;
+    margin: 12px auto 0;
+    padding: 8px 24px;
+    z-index: auto;
+  }
+}
+
+/* =================================
+   AJUSTES FINALES - TU CAMINO Y FOOTER
+================================= */
+
+/* LISTA DE EQUIPOS SIN SCROLL INTERNO */
+
+.lista-equipos-camino {
+  height: auto;
+  overflow: visible;
+}
+
+.lista-equipos-scroll {
+  flex: none;
+  min-height: auto;
+  overflow: visible;
+  padding: 12px 15px;
+}
+
+/* En mobile la lista conserva su altura natural */
+@media (max-width: 900px) {
+  .lista-equipos-camino {
+    height: auto;
+  }
+
+  .lista-equipos-scroll {
+    overflow: visible;
+  }
+}
+
+/* FOOTER: DERECHOS RESERVADOS AL FINAL */
+
+footer {
+  grid-template-columns: 1fr 1.3fr 1fr;
+  grid-template-rows: auto auto;
+  align-items: start;
+  row-gap: 25px;
+}
+
+.footer-contacto {
+  grid-column: 1;
+  grid-row: 1;
+  text-align: left;
+}
+
+.footer-centro {
+  grid-column: 2;
+  grid-row: 1;
+  text-align: center;
+}
+
+.footer-ayuda {
+  grid-column: 3;
+  grid-row: 1;
+  text-align: right;
+}
+
+.footer-copy {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  width: 100%;
+  margin-top: 0;
+  padding-top: 18px;
+  border-top: 1px solid rgba(114, 202, 255, 0.2);
+  text-align: center;
+}
+
+/* FOOTER RESPONSIVE */
+
+@media (max-width: 750px) {
+  footer {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+    gap: 25px;
+  }
+
+  .footer-contacto {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .footer-ayuda {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .footer-centro {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    padding-top: 20px;
+    border-top: 1px solid rgba(114, 202, 255, 0.2);
+  }
+
+  .footer-copy {
+    grid-column: 1 / -1;
+    grid-row: 3;
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    gap: 22px;
+  }
+
+  .footer-contacto,
+  .footer-centro,
+  .footer-ayuda,
+  .footer-copy {
+    grid-column: 1;
+    grid-row: auto;
+    text-align: center;
+  }
+
+  .footer-centro {
+    padding-top: 20px;
+  }
+}
+
+/* EL FOOTER DE TU CAMINO NO NECESITA ESPACIO EXTRA */
+
+.tu-camino footer {
+  margin-top: 0;
+}
+
+/* =================================
+   CORRECCIONES MOBILE - FOOTER Y LOGROS
+================================= */
+
+@media (max-width: 480px) {
+
+  /* FOOTER: ORDEN CORRECTO */
+  .tu-camino footer .footer-centro {
+    order: 1;
+    grid-column: 1;
+    grid-row: auto;
+    text-align: center;
+    border-top: none;
+    padding-top: 0;
+  }
+
+  .tu-camino footer .footer-contacto {
+    order: 2;
+    grid-column: 1;
+    grid-row: auto;
+    text-align: center;
+  }
+
+  .tu-camino footer .footer-ayuda {
+    order: 3;
+    grid-column: 1;
+    grid-row: auto;
+    text-align: center;
+  }
+
+  .tu-camino footer .footer-copy {
+    order: 4;
+    grid-column: 1;
+    grid-row: auto;
+    text-align: center;
+  }
+
+  /* LOGROS: TODOS ALINEADOS */
+  .tu-camino .ficha-logros {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .tu-camino .ficha-logros ul {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    width: 100%;
+    padding-left: 22px;
+    gap: 10px;
+  }
+
+  .tu-camino .ficha-logros li {
+    width: 100%;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    line-height: 1.5;
+  }
+}
+
+/* =========================================
+   TABLETS - ADAPTACIÓN RESPONSIVE
+   751px A 1024px
+========================================= */
+
+@media (min-width: 751px) and (max-width: 1024px) {
+
+  /* HEADER */
+  header {
+    padding: 0 22px;
+    gap: 15px;
+    font-size: 13px;
+    justify-content: space-between;
+  }
+
+  /* =================================
+     INICIO
+  ================================= */
+
+  .pantalla-inicio {
+    overflow-x: hidden;
+    background-attachment: scroll;
+  }
+
+  .pantalla-inicio .inicio-main {
+    min-height: auto;
+    padding: 45px 4%;
+    gap: 35px;
+  }
+
+  /* Tablets en posición vertical */
+  @media (max-width: 900px) {
+    .pantalla-inicio .inicio-main {
+      flex-direction: column;
+      gap: 35px;
+    }
+
+    .inicio-panel {
+      width: 100%;
+      max-width: 520px;
+    }
+
+    .inicio-identidad {
+      width: 100%;
+      max-width: 350px;
+    }
+
+    .inicio-identidad img {
+      width: 230px;
+    }
+  }
+
+  /* Tablets en posición horizontal */
+  @media (min-width: 901px) {
+    .pantalla-inicio .inicio-main {
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 35px;
+      padding: 45px 4%;
+    }
+
+    .inicio-panel {
+      width: 52%;
+      max-width: 470px;
+      padding: 30px;
+    }
+
+    .inicio-identidad {
+      width: 38%;
+      max-width: 330px;
+    }
+
+    .inicio-identidad img {
+      width: 100%;
+      max-width: 290px;
+    }
+  }
+
+  /* =================================
+     ARMADO DEL EQUIPO
+  ================================= */
+
+  .pantalla-armado .pantalla-juego {
+    width: 100%;
+    padding: 35px 3%;
+    gap: 20px;
+  }
+
+  .pantalla-armado .logo {
+    grid-column: 1 / -1;
+  }
+
+  .pantalla-armado .logo img {
+    width: 135px;
+  }
+
+  /* Tablet vertical: panel y cancha apilados */
+  @media (max-width: 850px) {
+    .pantalla-armado .pantalla-juego {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+    }
+
+    .pantalla-armado .panel-sorteo,
+    .pantalla-armado .cancha {
+      width: 100%;
+      max-width: 550px;
+    }
+
+    .pantalla-armado .panel-sorteo {
+      height: 600px;
+    }
+
+    .pantalla-armado .logo {
+      order: -1;
+    }
+  }
+
+  /* Tablet horizontal: panel y cancha lado a lado */
+  @media (min-width: 851px) {
+    .pantalla-armado .pantalla-juego {
+      display: grid;
+      grid-template-columns: minmax(270px, 0.85fr) minmax(350px, 1.15fr);
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 35px 3%;
+    }
+
+    .pantalla-armado .panel-sorteo {
+      height: 600px;
+      padding: 18px;
+    }
+
+    .pantalla-armado .cancha {
+      padding: 18px;
+    }
+
+    .pantalla-armado .jugador-disponible {
+      grid-template-columns: minmax(0, 1fr) 38px 34px;
+      gap: 5px;
+      padding: 8px;
+    }
+
+    .pantalla-armado .nombre-jugador {
+      font-size: 11px;
+    }
+
+    .pantalla-armado .categoria-jugador {
+      font-size: 10px;
+    }
+  }
+
+  /* Instrucciones */
+  .pantalla-armado .instrucciones-juego {
+    padding: 45px 4%;
+  }
+
+  .pantalla-armado .pasos-juego {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+  }
+
+  /* =================================
+     PLAYOFFS
+  ================================= */
+
+  main.pantalla-playoffs {
+    width: 96%;
+    padding: 25px;
+    margin: 25px auto 40px;
+  }
+
+  .playoffs-encabezado {
+    gap: 22px;
+  }
+
+  .playoffs-encabezado h1 {
+    font-size: 42px;
+  }
+
+  .playoffs-encabezado img {
+    width: 115px;
+  }
+
+  .progreso-playoffs {
+    gap: 10px;
+  }
+
+  .ronda-progreso {
+    font-size: 11px;
+  }
+
+  .ronda-progreso span {
+    padding: 12px 6px;
+  }
+
+  .partido-playoffs,
+  .camino-playoffs {
+    padding: 20px;
+  }
+
+  .marcador-partido {
+    gap: 10px;
+    padding: 22px 12px;
+  }
+
+  .escudo-marcador {
+    width: 65px;
+    height: 65px;
+  }
+
+  .equipo-marcador h2 {
+    font-size: 15px;
+  }
+
+  .resultado-partido {
+    min-width: 135px;
+    min-height: 80px;
+    gap: 15px;
+    padding: 12px 18px;
+    font-size: 43px;
+  }
+
+  .reloj-partido {
+    font-size: 19px;
+  }
+
+  .resumen-partido {
+    gap: 15px;
+  }
+
+  .cronica-partido h2 {
+    font-size: 25px;
+  }
+
+  /* =================================
+     TU CAMINO
+  ================================= */
+
+  .contenido-tu-camino {
+    width: 94%;
+    padding: 30px 0;
+    gap: 25px;
+  }
+
+  .encabezado-tu-camino {
+    gap: 20px;
+  }
+
+  .encabezado-tu-camino > img {
+    width: 115px;
+    height: 105px;
+  }
+
+  .encabezado-tu-camino h1 {
+    font-size: 48px;
+  }
+
+  .encabezado-tu-camino p {
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+
+  .paneles-tu-camino {
+    gap: 16px;
+  }
+
+  .lista-equipos-camino {
+    height: auto;
+    overflow: visible;
+  }
+
+  .lista-equipos-scroll {
+    flex: none;
+    min-height: auto;
+    overflow: visible;
+    padding: 10px;
+  }
+
+  .equipo-camino {
+    min-height: 85px;
+    gap: 10px;
+    padding: 10px;
+  }
+
+  .equipo-camino > img {
+    width: 55px;
+    height: 55px;
+  }
+
+  .equipo-camino h3 {
+    font-size: 13px;
+  }
+
+  .equipo-camino p {
+    font-size: 12px;
+  }
+
+  .ficha-historica {
+    padding: 22px;
+  }
+
+  .ficha-encabezado {
+    gap: 15px;
+  }
+
+  .ficha-encabezado img {
+    width: 70px;
+    height: 70px;
+  }
+
+  .ficha-contenido {
+    gap: 15px;
+  }
+
+  .ficha-historia p {
+    font-size: 15px;
+  }
+
+  .ficha-foto {
+    min-height: 200px;
+  }
+
+  .ficha-foto img {
+    height: 200px;
+  }
+
+  .ficha-logros {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .ficha-logros ul {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  /* =================================
+     FOOTER
+  ================================= */
+
+  footer {
+    margin-top: 0;
+    padding: 35px 4% 25px;
+    grid-template-columns: 1fr 1.2fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 22px;
+  }
+
+  .footer-contacto {
+    grid-column: 1;
+    grid-row: 1;
+    text-align: left;
+  }
+
+  .footer-centro {
+    grid-column: 2;
+    grid-row: 1;
+    text-align: center;
+    border: none;
+    padding: 0;
+  }
+
+  .footer-ayuda {
+    grid-column: 3;
+    grid-row: 1;
+    text-align: right;
+  }
+
+  .footer-copy {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin-top: 0;
+    padding-top: 15px;
+    text-align: center;
+  }
+}
+
+.boton-saltar {
+  display: block;
+  position: static;
+  margin: 12px auto 0;
+}

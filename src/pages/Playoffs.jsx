@@ -500,15 +500,6 @@ function Playoffs() {
               </div>
             ) : (
               <>
-                {partidoEnCurso && (
-                  <button
-                    className="boton-saltar"
-                    onClick={saltarPartido}
-                  >
-                    SALTAR
-                  </button>
-                )}
-
                 <div className="marcador-partido">
 
                   <div className="equipo-marcador">
@@ -526,6 +517,15 @@ function Playoffs() {
                       {partidoEnCurso ? `${minutoActual}'` : "90'"}
                     </div>
 
+                {/* BOTÓN SALTAR: AHORA DEBAJO DEL MARCADOR */}
+                {partidoEnCurso && (
+                  <button
+                    className="boton-saltar"
+                    onClick={saltarPartido}
+                  >
+                    SALTAR
+                  </button>
+                )}
                     <div className="resultado-partido">
                       <strong>{golesPropiosActuales}</strong>
                       <span>-</span>
@@ -545,6 +545,7 @@ function Playoffs() {
                   </div>
 
                 </div>
+
 
                 {partido.penales && !partidoEnCurso && (
                   <div className="resultado-penales">
