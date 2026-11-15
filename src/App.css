@@ -1,3 +1,4 @@
+
 /* Quitamos los estilos que trae Vite */
 * {
   box-sizing: border-box;
@@ -163,6 +164,8 @@ main {
   -webkit-user-drag: none;
 }
 
+/* PANTALLA DE JUEGO */
+
 .pantalla-juego {
   display: flex;
   align-items: center;
@@ -173,24 +176,30 @@ main {
   box-sizing: border-box;
 }
 
+/* PANEL DE SORTEO */
+
 .panel-sorteo {
   width: 360px;
-  height: 560px;
+  height: 600px;
   background: #102b52;
-  padding: 30px;
+  padding: 24px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
 }
+
+/* EQUIPO SORTEADO */
+
 .equipo {
-  height: 115px;
+  height: 85px;
+  min-height: 85px;
   background: #72a9e0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  margin-bottom: 25px;
+  margin-bottom: 18px;
   box-sizing: border-box;
 }
 
@@ -202,60 +211,26 @@ main {
 }
 
 .equipo-sorteado {
-background: #72a9e0;
+  background: #72a9e0;
 }
+
 .equipo h2 {
   margin: 0;
-  font-size: 25px;
+  font-size: 23px;
 }
 
 .equipo h3 {
-  margin: 5px 0 0;
-  font-size: 25px;
+  margin: 3px 0 0;
+  font-size: 21px;
   font-weight: bold;
   color: #a5d8fd;
 }
 
-.posiciones {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  overflow-y: auto;
-  padding-right: 8px;
-  margin-bottom: 20px;
-}
-
-.posicion {
-  flex-shrink: 0;
-  height: 48px;
-  background: #72a9e0;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 14px;
-  padding: 0 15px;
-  box-sizing: border-box;
-}
-
-.posicion span:first-child {
-  width: 60px;
-  flex-shrink: 0;
-  font-weight: bold;
-  color: white;
-  border-right: 2px solid white;
-  padding-right: 10px;
-}
-
-.posicion .vacio {
-  color: white;
-  font-weight: bold;
-  letter-spacing: 1px;
-  font-size: 13px;
-}
+/* BOTON SORTEAR */
 
 .sortear {
   flex-shrink: 0;
-  margin-top: auto;
+  margin-top: 15px;
   align-self: center;
   width: 180px;
   padding: 15px;
@@ -266,6 +241,8 @@ background: #72a9e0;
   font-weight: bold;
   cursor: pointer;
 }
+
+/* CANCHA */
 
 .cancha {
   width: 500px;
@@ -297,6 +274,9 @@ background: #72a9e0;
   user-select: none;
   -webkit-user-drag: none;
 }
+
+/* FOOTER */
+
 footer {
   margin-top: 100px;
   padding: 45px 80px 30px;
@@ -307,6 +287,7 @@ footer {
   align-items: start;
   gap: 40px;
 }
+
 .footer-centro {
   grid-column: 2;
   text-align: center;
@@ -357,4 +338,549 @@ footer {
 
 footer h3 {
   color: #72a9e0;
+}
+
+/* JUGADORES DISPONIBLES */
+
+.titulo-jugadores {
+  color: white;
+  font-size: 16px;
+  text-align: center;
+  margin: 0 0 12px;
+}
+
+.jugadores-disponibles {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  overflow-y: auto;
+  min-height: 0;
+  flex: 1;
+  padding-right: 5px;
+}
+
+.jugador-disponible {
+  flex-shrink: 0;
+  width: 100%;
+  min-height: 39px;
+  border: none;
+  padding: 7px 10px;
+  background: #72a9e0;
+  color: white;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.jugador-disponible:hover,
+.jugador-elegido {
+  background: #f2c94c;
+  color: #102b52;
+}
+
+.categoria-jugador {
+  font-size: 11px;
+  border: 1px solid currentColor;
+  padding: 3px 5px;
+}
+
+.instruccion-cancha {
+  color: white;
+  text-align: center;
+  font-size: 13px;
+}
+
+.contador-xi {
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* RATINGS DE JUGADORES */
+
+.nombre-jugador {
+  flex: 1;
+  text-align: left;
+}
+
+.rating-jugador {
+  min-width: 34px;
+  padding: 4px;
+  background: #f2c94c;
+  color: #102b52;
+  font-weight: 900;
+  text-align: center;
+  border-radius: 3px;
+}
+
+.jugador-disponible:disabled {
+  opacity: 0.7;
+  cursor: default;
+}
+
+/* CANCHA INTERACTIVA */
+
+.campo-interactivo {
+  position: relative;
+  width: 100%;
+  max-width: 550px;
+  margin: 0 auto;
+  line-height: 0;
+}
+
+.campo-interactivo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.puesto-ficha {
+  position: absolute;
+  width: 11%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 2px dashed rgba(255,255,255,0.8);
+  border-radius: 50%;
+  background: rgba(255,255,255,0.08);
+  padding: 0;
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.puesto-ficha:disabled {
+  cursor: default;
+}
+
+.puesto-compatible:not(.puesto-ocupado) {
+  outline: 3px solid #f2c94c;
+  outline-offset: 2px;
+}
+
+.puesto-ocupado {
+  background: white;
+  border: 3px solid #102b52;
+  flex-direction: column;
+  overflow: visible;
+}
+
+.ficha-rating {
+  color: #102b52;
+  font-size: clamp(13px, 2vw, 25px);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.ficha-nombre {
+  position: absolute;
+  top: 105%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #102b52;
+  color: white;
+  font-size: 8px;
+  font-weight: bold;
+  line-height: 1.2;
+  padding: 4px 5px;
+  border-radius: 3px;
+  white-space: nowrap;
+}
+
+/* CANCHA DIBUJADA CON CSS */
+
+.campo-codigo {
+  position: relative;
+  width: 100%;
+  max-width: 550px;
+  aspect-ratio: 3 / 4;
+  margin: 15px auto;
+  overflow: hidden;
+  background: repeating-linear-gradient(
+    to bottom,
+    #39885b 0%,
+    #39885b 8.33%,
+    #347e53 8.33%,
+    #347e53 16.66%
+  );
+  border: 2px solid rgba(255,255,255,0.8);
+}
+
+/* LÍNEA CENTRAL Y CÍRCULO */
+
+.linea-mitad {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  border-top: 2px solid rgba(255,255,255,0.85);
+}
+
+.circulo-central {
+  position: absolute;
+  width: 25%;
+  aspect-ratio: 1;
+  border: 2px solid rgba(255,255,255,0.85);
+  border-radius: 50%;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* ÁREA GRANDE SUPERIOR E INFERIOR */
+
+.area-superior,
+.area-inferior {
+  position: absolute;
+  left: 20%;
+  width: 60%;
+  height: 16%;
+  border: 2px solid rgba(255,255,255,0.85);
+}
+
+.area-superior {
+  top: 0;
+  border-top: none;
+}
+
+.area-inferior {
+  bottom: 0;
+  border-bottom: none;
+}
+
+/* ÁREA CHICA */
+
+.area-chica-superior,
+.area-chica-inferior {
+  position: absolute;
+  left: 36%;
+  width: 28%;
+  height: 7%;
+  border: 2px solid rgba(255,255,255,0.85);
+}
+
+.area-chica-superior {
+  top: 0;
+  border-top: none;
+}
+
+.area-chica-inferior {
+  bottom: 0;
+  border-bottom: none;
+}
+
+/* PUNTOS DE PENAL */
+
+.punto-central,
+.punto-superior,
+.punto-inferior {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: white;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.punto-central {
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.punto-superior {
+  top: 11%;
+}
+
+.punto-inferior {
+  bottom: 11%;
+}
+
+/* ARCOS DE PENAL */
+
+.arco-superior,
+.arco-inferior {
+  position: absolute;
+  width: 25%;
+  height: 8%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.arco-superior {
+  top: 12%;
+  border: 2px solid rgba(255,255,255,0.85);
+  border-top: none;
+  border-radius: 0 0 50% 50%;
+}
+
+.arco-inferior {
+  bottom: 12%;
+  border: 2px solid rgba(255,255,255,0.85);
+  border-bottom: none;
+  border-radius: 50% 50% 0 0;
+}
+
+/* FICHAS */
+
+.puesto-ficha {
+  position: absolute;
+  width: 11%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 2px dashed rgba(255,255,255,0.85);
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  padding: 0;
+  cursor: pointer;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.puesto-ficha:disabled {
+  cursor: default;
+}
+
+.puesto-compatible:not(.puesto-ocupado) {
+  outline: 3px solid #f2c94c;
+  outline-offset: 2px;
+}
+
+.ficha-posicion {
+  color: white;
+  font-size: clamp(9px, 1.1vw, 13px);
+  font-weight: bold;
+}
+
+.puesto-ocupado {
+  background: white;
+  border: 3px solid #102b52;
+  flex-direction: column;
+  overflow: visible;
+}
+
+.ficha-rating {
+  color: #102b52;
+  font-size: clamp(13px, 2vw, 25px);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.ficha-nombre {
+  position: absolute;
+  top: 105%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #102b52;
+  color: white;
+  font-size: clamp(7px, 0.85vw, 11px);
+  font-weight: bold;
+  line-height: 1.2;
+  padding: 4px 6px;
+  border-radius: 3px;
+  white-space: nowrap;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rating-jugador {
+  min-width: 34px;
+  padding: 4px;
+  background: #f2c94c;
+  color: #102b52;
+  font-weight: 900;
+  text-align: center;
+  border-radius: 3px;
+}
+
+.nombre-jugador {
+  flex: 1;
+  text-align: left;
+}
+
+.mensaje {
+  text-align: center;
+  color: white;
+  padding: 15px;
+}
+
+.mensaje strong {
+  display: block;
+  font-size: 40px;
+  color: #f2c94c;
+}
+
+.jugador-sin-puesto {
+  opacity: 0.25;
+  cursor: not-allowed;
+  filter: grayscale(1);
+}
+
+.jugador-sin-puesto:hover {
+  background: #72a9e0;
+  color: white;
+}
+
+/* RESULTADO FINAL */
+
+.mensaje-final {
+  position: static;
+  transform: none;
+  width: 100%;
+  margin: 20px auto 0;
+  padding: 18px;
+  background: #24518e;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  box-sizing: border-box;
+}
+
+.mensaje-final h2 {
+  margin: 0 0 8px;
+  font-size: 22px;
+}
+
+.mensaje-final p {
+  margin: 0 0 5px;
+  font-size: 14px;
+}
+
+.mensaje-final strong {
+  display: block;
+  color: #f2c94c;
+  font-size: 38px;
+}
+
+/* PANEL CUANDO EL XI ESTÁ COMPLETO */
+
+.panel-sorteo.panel-completo {
+  height: auto;
+  align-self: center;
+}
+
+.panel-completo .jugadores-disponibles {
+  display: none;
+}
+
+.panel-completo .sortear {
+  margin-top: 25px;
+}
+
+/* =================================
+   INSTRUCCIONES DEL JUEGO
+================================= */
+
+.instrucciones-juego {
+  width: 100%;
+  padding: 65px 8%;
+  background: #102b52;
+  border-top: 2px solid #24518e;
+}
+
+.instrucciones-encabezado {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 45px;
+}
+
+.instrucciones-encabezado span {
+  color: #72a9e0;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 3px;
+}
+
+.instrucciones-encabezado h2 {
+  color: white;
+  font-size: 32px;
+  margin: 12px 0;
+}
+
+.instrucciones-encabezado p {
+  color: #d5e5f5;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.pasos-juego {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.paso-juego {
+  background: #183b67;
+  border: 1px solid #24518e;
+  border-radius: 12px;
+  padding: 25px 20px;
+  min-height: 235px;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.paso-juego:hover {
+  transform: translateY(-5px);
+  background: #204779;
+}
+
+.numero-paso {
+  color: #f2c94c;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.paso-juego h3 {
+  color: white;
+  font-size: 15px;
+  margin: 18px 0 12px;
+}
+
+.paso-juego p {
+  color: #d5e5f5;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 1100px) {
+  .pasos-juego {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .instrucciones-juego {
+    padding: 45px 20px;
+  }
+
+  .pasos-juego {
+    grid-template-columns: 1fr;
+  }
+
+  .paso-juego {
+    min-height: auto;
+  }
+}
+
+/* AJUSTES DE SEPARACIÓN DE INSTRUCCIONES */
+
+.instrucciones-juego {
+  margin-top: 60px;
+  margin-bottom: 0;
+  background: rgba(16, 43, 82, 0.88);
+}
+
+/* EL FOOTER ARRANCA INMEDIATAMENTE DESPUÉS */
+
+footer {
+  margin-top: 0;
 }

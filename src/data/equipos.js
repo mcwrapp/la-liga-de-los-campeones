@@ -3,7 +3,7 @@
 // ARQ (arquero), DEF (defensor), MED (mediocampista) o DEL (delantero).
 // Las categorías están simplificadas para la jugabilidad, no representan posiciones tácticas exactas.
 
-export const equipos = [
+const equiposBase = [
   {
     id: 'boca-1977',
     nombre: 'BOCA JUNIORS',
@@ -203,3 +203,28 @@ export const equipos = [
     ],
   },
 ]
+
+// Ratings históricos estimados, siguiendo el orden de los jugadores
+// de cada equipo en la base de datos.
+
+const ratings = {
+  'boca-1977': [88, 84, 85, 86, 87, 78, 86, 79, 83, 80, 77],
+  'boca-2000': [90, 88, 89, 91, 84, 86, 87, 83, 93, 86, 92],
+  'river-1996': [82, 82, 90, 84, 88, 86, 82, 86, 94, 86, 91],
+  'river-2015': [91, 87, 88, 86, 86, 88, 88, 84, 85, 86, 87],
+  'independiente-1984': [87, 85, 88, 87, 84, 88, 89, 91, 95, 84, 82],
+  'racing-2001': [84, 79, 80, 82, 83, 85, 83, 86, 80, 84, 82],
+  'estudiantes-2009': [88, 82, 87, 88, 80, 80, 91, 86, 82, 88, 83],
+  'san-lorenzo-2014': [88, 86, 82, 84, 85, 82, 87, 86, 88, 83, 82],
+  'velez-1994': [94, 82, 86, 85, 83, 86, 82, 85, 83, 89, 86],
+  'newells-1992': [85, 84, 86, 85, 87, 86, 83, 86, 82, 81, 83],
+  'argentinos-1985': [83, 82, 80, 84, 82, 87, 88, 90, 85, 82, 82],
+}
+
+export const equipos = equiposBase.map(equipo => ({
+  ...equipo,
+  jugadores: equipo.jugadores.map((jugador, indice) => ({
+    ...jugador,
+    rating: ratings[equipo.id][indice],
+  })),
+}))
