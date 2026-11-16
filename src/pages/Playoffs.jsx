@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import logo from '../assets/Logo.png'
+import escudoLiga from '../assets/escudo-liga.png'
 import escudoArgentinos from '../assets/escudo-argentinos.png'
 import escudoBoca from '../assets/escudo-boca.png'
 import escudoEstudiantes from '../assets/escudo-estudiantes.png'
@@ -484,11 +485,17 @@ function Playoffs() {
                     ' la gran final'}.
                 </p>
 
-                <div className="escudos-pendientes">
-                  <span>⚽</span>
-                  <b>VS</b>
-                  <span>?</span>
-                </div>
+<div className="escudos-pendientes">
+  <img
+    src={escudoLiga}
+    alt="Escudo de La Liga de los Campeones"
+    className="logo-pendiente"
+  />
+
+  <b>VS</b>
+
+  <span>?</span>
+</div>
 
                 <button
                   className="boton-jugar"
@@ -505,7 +512,7 @@ function Playoffs() {
                   <div className="equipo-marcador">
                     <img
                       className="escudo-marcador"
-                      src={logo}
+                      src={escudoLiga}
                       alt="Escudo de tu equipo"
                     />
                     <h2>TU EQUIPO</h2>

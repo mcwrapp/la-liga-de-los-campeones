@@ -4099,3 +4099,81 @@ footer {
   position: static;
   margin: 12px auto 0;
 }
+
+.logo-pendiente {
+  width: 130px;
+  height: 130px;
+  object-fit: contain;
+}
+
+/* BOTÓN DESCUBRIR TU CAMINO - ESTILO SECUNDARIO */
+
+.partido-playoffs .mensaje-campeon + .boton-jugar {
+  background: transparent;
+  color: #ffc83d;
+  border: 2px solid #ffc83d;
+  box-shadow: none;
+  transition: all 0.25s ease;
+}
+
+/* EFECTO AL PASAR EL MOUSE */
+.partido-playoffs .mensaje-campeon + .boton-jugar:hover {
+  background: #ffc83d;
+  color: #082448;
+  box-shadow:
+    0 0 10px rgba(255, 200, 61, 0.6),
+    0 0 25px rgba(255, 200, 61, 0.35);
+  transform: translateY(-2px);
+}/* AGRANDAR EL LOGO DE TU EQUIPO EN EL MARCADOR */
+
+.marcador-partido > .equipo-marcador:first-child .escudo-marcador {
+  width: 145px;
+  height: 130px;
+  object-fit: contain;
+}
+
+/* TABLETS */
+@media (min-width: 601px) and (max-width: 900px) {
+  .marcador-partido > .equipo-marcador:first-child .escudo-marcador {
+    width: 100px;
+    height: 95px;
+  }
+}
+
+/* CELULARES */
+@media (max-width: 600px) {
+  .marcador-partido > .equipo-marcador:first-child .escudo-marcador {
+    width: 72px;
+    height: 68px;
+  }
+}
+
+/* ESCUDO DE LA LIGA ANTES DEL PARTIDO */
+.logo-pendiente {
+  width: 110px;
+  height: 110px;
+  object-fit: contain;
+}
+
+/* ESCUDO DE LA LIGA DURANTE EL PARTIDO */
+.marcador-partido > .equipo-marcador:first-child .escudo-marcador {
+  width: 115px;
+  height: 115px;
+  object-fit: contain;
+}
+
+/* EVITAR ARRASTRE DE IMÁGENES EN TU CAMINO */
+
+.tu-camino img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* EVITAR ARRASTRE DE IMÁGENES EN PLAYOFFS */
+
+.pantalla-playoffs img {
+  -webkit-user-drag: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
